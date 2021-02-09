@@ -1,0 +1,11 @@
+image: gitpod/workspace-dotnet
+ports:
+  - port: 5000
+    onOpen: ignore
+  - port: 5001
+    onOpen: open-preview
+tasks:
+  - init: dotnet new webapp -o gitpod_asp
+    command: >
+      cd gitpod_asp/ &&
+      dotnet run --urls http://0.0.0.0:5001
