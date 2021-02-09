@@ -3,7 +3,7 @@ ports:
   - port: 8080
     onOpen: open-preview
 tasks:
-  - init: dotnet new web -o gitpod_asp
+  - init: dotnet new web -o GitpodASP
     command: >
-      cd gitpod_asp/ &&
+      cd GitpodASP/ &&
       dotnet run --urls http://0.0.0.0:8080
