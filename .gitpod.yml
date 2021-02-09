@@ -5,7 +5,7 @@ ports:
   - port: 5001
     onOpen: open-preview
 tasks:
-  - init: dotnet new webapp -o gitpod_asp
+  - init: dotnet new web -o gitpod_asp
     command: >
       cd gitpod_asp/ &&
       dotnet run --urls http://0.0.0.0:5001
