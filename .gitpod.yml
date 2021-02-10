@@ -4,6 +4,4 @@ ports:
     onOpen: open-preview
 tasks:
   - init: dotnet new web -o GitpodASP
-    command: >
-      cd GitpodASP/ &&
-      dotnet run --urls http://0.0.0.0:8080
+    command: dotnet run -p GitpodASP --urls http://0.0.0.0:8080
