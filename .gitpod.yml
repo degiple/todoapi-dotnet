@@ -1,7 +1,7 @@
 image: gitpod/workspace-dotnet
 tasks:
   - init: dotnet new web -n GitpodASP
-    command: dotnet run -p GitpodASP --urls http://0.0.0.0:8080
+    command: dotnet run -p GitpodASP --urls http://*:8080
 ports:
   - port: 8080
     onOpen: open-preview
