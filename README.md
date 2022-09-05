@@ -1,2 +1,9 @@
-# Gitpod ASP
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://gitlab.com/acefed/gitpod-asp)
+# todoapi-dotnet
+
+```shell
+# アプリケーション実行
+dotnet run -p ToDoAPI/ --urls http://+:5215
+
+# コンテナ起動
+docker-compose up
+```
