@@ -9,7 +9,7 @@ services:
       context: .
       dockerfile: ToDoAPI/Dockerfile
     ports:
-      - 5215:5215
+      - 8080:8080
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:

@@ -42,7 +42,7 @@
       "label": "docker-build: debug",
       "dependsOn": ["build"],
       "dockerBuild": {
-        "tag": "gitpodasp:dev",
+        "tag": "todoapidotnet:dev",
         "target": "base",
         "dockerfile": "${workspaceFolder}/ToDoAPI/Dockerfile",
         "context": "${workspaceFolder}",
@@ -57,7 +57,7 @@
       "label": "docker-build: release",
       "dependsOn": ["build"],
       "dockerBuild": {
-        "tag": "gitpodasp:latest",
+        "tag": "todoapidotnet:latest",
         "dockerfile": "${workspaceFolder}/ToDoAPI/Dockerfile",
         "context": "${workspaceFolder}",
         "pull": true

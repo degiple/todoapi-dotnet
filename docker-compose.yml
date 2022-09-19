@@ -6,7 +6,7 @@ services:
   todoapi:
     image: todoapi
     build:
-      context: .
       dockerfile: ToDoAPI/Dockerfile
+      context: ./
     ports:
-      - 5215:5215
+      - 8080:8080
