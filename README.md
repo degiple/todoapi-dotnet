@@ -2,6 +2,10 @@
 
 ASP.NET core と Docker を使って、コンテナ開発を学ぶためのコンテンツです。
 
+## 前提・制約
+
+- このコンテンツでは、ASP.NETの詳しい説明はありません
+
 ## ハンズオンの準備
 
 ### GitPod
@@ -16,20 +20,47 @@ ASP.NET core と Docker を使って、コンテナ開発を学ぶためのコ�
 1. 作成した GitHub アカウントでログインし、GitHub と GitPod の連携を承認する。
 1. ブラウザで IDE が起動される。
 
-
 ## ハンズオン!!
 
 さて、これからあなたには Todoアプリケーションのコンテナ化を目指して構築作業行なって頂きます。
 
 まずはサンプルAPIの起動から始めましょう
 
-### サンプルAPIの起動
+### プロジェクトの作成
+
+まずは テンプレートからASP.NETプロジェクト`TodoApi`を作成しましょう
 
 ```shell
-# アプリケーション実行
-dotnet run -p ToDoAPI/ --urls http://+:8080
-# または cd ToDoAPI && dotnet run --urls http://+:8080
+dotnet new webapi -o TodoApi
 ```
+
+次に、インメモリ用のEFCoreをインストールしておきます。  
+EFCoreにより、Webアプリ側のみで一時的なDBをメモリ上に構成することができます。
+
+```shell
+cd TodoApi
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+```
+
+### サンプルの WeatherForecast API を起動してみる
+
+プロジェクトに最初から用意されているサンプルのAPIで、挙動を確認してみましょう！  
+※コマンドを実行するディレクトリの位置に注意してください。
+
+```shell
+cd /workspace/todoapi-dotnet
+dotnet run --project TodoApi --urls http://+:8080
+# または cd TodoApi && dotnet run --urls http://+:8080
+```
+
+
+
+
+Swaggerを使って動作確認
+
+
+
+https://8080-degiple-todoapidotnet-lv9mmfnsijs.ws-us69.gitpod.io/weatherforecast
 
 
 ### ToDoAPIの追加
@@ -37,6 +68,7 @@ dotnet run -p ToDoAPI/ --urls http://+:8080
 関連ファイルの配置
 
 ```shell
+
 ```
 
 
