@@ -42,28 +42,53 @@ cd TodoApi
 dotnet add package Microsoft.EntityFrameworkCore.InMemory
 ```
 
-### サンプルの WeatherForecast API を起動してみる
+### サンプルの WeatherForecast API を試してみる
 
 プロジェクトに最初から用意されているサンプルのAPIで、挙動を確認してみましょう！  
 ※コマンドを実行するディレクトリの位置に注意してください。
 
+1. TodoApiプロジェクトの実行
 ```shell
 cd /workspace/todoapi-dotnet
 dotnet run --project TodoApi --urls http://+:8080
 # または cd TodoApi && dotnet run --urls http://+:8080
 ```
 
+2. 別のターミナルを立ち上げ
+
+![image](https://user-images.githubusercontent.com/65447508/193514013-215a52ea-14b5-40b7-8049-640277b24e0d.png)
+
+3. WeatherForecast API を CURLコマンドで確認
+```shell
+curl http://localhost:8080/weatherforecast | jq
+```
+
+<img width="955" alt="image" src="https://user-images.githubusercontent.com/65447508/193513739-ad7e889e-4d3d-4730-8464-22b41bef133a.png">
 
 
+今度はSwaggerを使って動作確認しましょう！
 
-Swaggerを使って動作確認
+1. PORTSタグを開き、URLをコピーする
+![image](https://user-images.githubusercontent.com/65447508/193514338-bd696fdf-423c-48e9-a81c-342afe8ecbde.png)
+
+2. ブラウザで新しくタブを開き、以下のようにURLを入力する
+```
+＜コピーしたURL＞/swagger
+
+# 例： https://8080-degiple-todoapidotnet-lv9mmfnsijs.ws-us69.gitpod.io/swagger
+```
+
+3. /WeatherForecast をクリック
+
+4. Try in out をクリック
+
+5. Exexute をクリック
+
+もし上手くいけば以下のような画面が表示されます！
+<img width="1262" alt="image" src="https://user-images.githubusercontent.com/65447508/193514920-fa60983b-08b3-4431-96b5-885462ed1919.png">
 
 
-
-https://8080-degiple-todoapidotnet-lv9mmfnsijs.ws-us69.gitpod.io/weatherforecast
-
-
-### ToDoAPIの追加
+### ToDo API の実装
 
 関連ファイルの配置
 
