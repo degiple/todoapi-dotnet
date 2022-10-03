@@ -21,9 +21,7 @@ ASP.NET core と Docker を使って、コンテナ開発を学ぶためのコ�
 
 ## ハンズオン!!
 
-さて、これからあなたには Todoアプリケーションのコンテナ化を目指して構築作業行なって頂きます。
-
-まずはサンプルAPIの起動から始めましょう
+さて、これからあなたには Todoアプリケーションのコンテナ化を目指して構築作業を行なって頂きます。
 
 ### (1) プロジェクトの作成
 
@@ -140,7 +138,11 @@ curl http://localhost:8080/api/todoitems/1 -XDELETE -v
 6. (Option) 前章までの内容を参考に、Swaggerでも動作確認をしてみましょう！
 
 
-### (4) Web UI の追加
+### (Option) Web画面の追加
+
+ToDoをWeb画面で操作したくなりませんか？
+
+シンプルな画面コードを用意しましたので、配置して試してみましょう！
 
 1. 静的ファイル(with Vue.js)の配置
 ```shell
@@ -160,7 +162,9 @@ dotnet run --project TodoApi --urls http://+:8080
 <img width="1155" alt="image" src="https://user-images.githubusercontent.com/65447508/193523504-5a97596e-cd6e-4241-bba3-ff42e866754d.png">
 
 
-### (5) TodoAPIのコンテナ化
+### (4) TodoAPIのコンテナ化
+
+いよいよコンテナ化です…！
 
 1. Dockerfileの配置
 ```shell
@@ -213,11 +217,12 @@ docker rm todoapi-sample
 docker container ls -a
 ```
 
-### (6) docker-composeによる起動
+### (5) docker-composeによる起動
 
 docker-composeは、複数のDockerコンテナを定義し実行するDockerアプリケーションのためのツールです。
   
-今回は単一のWebアプリコンテナの起動となりますが、いずれDB等と同時起動
+まだ単一のWebアプリコンテナだけですが、いずれDBコンテナ等と同時起動をしてみたいですよね!?
+という訳で、docker-composeでのコンテナ起動もやってみましょう！
 
 1. docker-compose.yamlの配置
 ```shell
@@ -252,7 +257,7 @@ docker-compose down
 
 ### (Option) docker-compose で SQL Server を起動して、ToDoアプリを完成させる！
 
-・・・
+Comming soon...
  
 
 ## ハンズオンの終了
