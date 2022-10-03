@@ -44,12 +44,12 @@
       "dockerBuild": {
         "tag": "todoapidotnet:dev",
         "target": "base",
-        "dockerfile": "${workspaceFolder}/ToDoAPI/Dockerfile",
+        "dockerfile": "${workspaceFolder}/TodoApi/Dockerfile",
         "context": "${workspaceFolder}",
         "pull": true
       },
       "netCore": {
-        "appProject": "${workspaceFolder}/ToDoAPI/ToDoAPI.csproj"
+        "appProject": "${workspaceFolder}/TodoApi/TodoApi.csproj"
       }
     },
     {
@@ -58,12 +58,12 @@
       "dependsOn": ["build"],
       "dockerBuild": {
         "tag": "todoapidotnet:latest",
-        "dockerfile": "${workspaceFolder}/ToDoAPI/Dockerfile",
+        "dockerfile": "${workspaceFolder}/TodoApi/Dockerfile",
         "context": "${workspaceFolder}",
         "pull": true
       },
       "netCore": {
-        "appProject": "${workspaceFolder}/ToDoAPI/ToDoAPI.csproj"
+        "appProject": "${workspaceFolder}/TodoApi/TodoApi.csproj"
       }
     },
     {
@@ -72,7 +72,7 @@
       "dependsOn": ["docker-build: debug"],
       "dockerRun": {},
       "netCore": {
-        "appProject": "${workspaceFolder}/ToDoAPI/ToDoAPI.csproj",
+        "appProject": "${workspaceFolder}/TodoApi/TodoApi.csproj",
         "enableDebugging": true
       }
     },
@@ -82,7 +82,7 @@
       "dependsOn": ["docker-build: release"],
       "dockerRun": {},
       "netCore": {
-        "appProject": "${workspaceFolder}/ToDoAPI/ToDoAPI.csproj"
+        "appProject": "${workspaceFolder}/TodoApi/TodoApi.csproj"
       }
     }
   ]
