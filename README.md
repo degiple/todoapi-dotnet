@@ -37,7 +37,7 @@ dotnet new webapi -o TodoApi
 EFCoreにより、Webアプリ側のみで一時的なDBをメモリ上に構成することができます。
 
 ```shell
-cd TodoApi
+cd /workspace/todoapi-dotnet/TodoApi
 dotnet add package Microsoft.EntityFrameworkCore.InMemory
 ```
 
