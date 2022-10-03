@@ -49,15 +49,15 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory
 1. TodoApiプロジェクトの実行
 
 ```shell
-cd /workspace/todoapi-dotnet && dotnet run --project TodoApi --urls http://+:8080
-# または cd /workspace/todoapi-dotnet/TodoApi && dotnet run --urls http://+:8080
+cd /workspace/todoapi-dotnet
+dotnet run --project TodoApi --urls http://+:8080
 ```
 
-2. 別のターミナルを立ち上げ
+2. 別のターミナルを立ち上げる
 
 ![image](https://user-images.githubusercontent.com/65447508/193514013-215a52ea-14b5-40b7-8049-640277b24e0d.png)
 
-3. WeatherForecast API を CURLコマンドで確認
+3. WeatherForecast API を curl コマンドで確認
 ```shell
 curl http://localhost:8080/weatherforecast | jq
 ```
@@ -115,8 +115,8 @@ cp /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs /workspace
 4. Webアプリケーションの実行
 
 ```shell
-cd /workspace/todoapi-dotnet && dotnet run --project TodoApi --urls http://+:8080
-# または cd /workspace/todoapi-dotnet/TodoApi && dotnet run --urls http://+:8080
+cd /workspace/todoapi-dotnet
+dotnet run --project TodoApi --urls http://+:8080
 ```
 
 5. ターミナルでの動作確認をしてみましょう
@@ -142,15 +142,15 @@ curl http://localhost:8080/api/todoitems/1 -XDELETE -v
 
 ### (4) Web UI の追加
 
-1. 静的ファイルの配置
+1. 静的ファイル(with Vue.js)の配置
 ```shell
 cp -r /workspace/todoapi-dotnet/work/wwwroot /workspace/todoapi-dotnet/TodoApi/wwwroot/
 ```
 
 2. Webアプリケーションの実行
 ```shell
-cd /workspace/todoapi-dotnet && dotnet run --project TodoApi --urls http://+:8080
-# または cd /workspace/todoapi-dotnet/TodoApi && dotnet run --urls http://+:8080
+cd /workspace/todoapi-dotnet
+dotnet run --project TodoApi --urls http://+:8080
 ```
 
 3. PORTSタグを開き、Open Browserをクリック
