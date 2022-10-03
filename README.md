@@ -4,13 +4,12 @@ ASP.NET core と Docker を使って、コンテナ開発を学ぶためのコ�
 
 ## 前提・制約
 
-- このコンテンツでは、ASP.NETの詳しい説明はありません
+- ASP.NETの詳しい説明はありません
+- GitPod の利用を前提としております
 
 ## ハンズオンの準備
 
 ### GitPod
-
-このコンテンツでは、GitPod の利用を推奨しています。
 
 以下の手順に従って、GitPod の準備を行なって下さい。
 
@@ -51,7 +50,7 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory
 
 ```shell
 cd /workspace/todoapi-dotnet && dotnet run --project TodoApi --urls http://+:8080
-# または cd TodoApi && dotnet run --urls http://+:8080
+# または cd /workspace/todoapi-dotnet/TodoApi && dotnet run --urls http://+:8080
 ```
 
 2. 別のターミナルを立ち上げ
@@ -92,7 +91,7 @@ curl http://localhost:8080/weatherforecast | jq
 
 ### (3) ToDo API の実装
 
-それではTodoアプリケーションを構築してきましょう！　　
+それではTodoアプリケーションを構築してきましょう！　　 
 尚、本コンテンツでは事前にソースコードを準備しています。
 
 1. モデルクラスの追加
@@ -117,10 +116,10 @@ cp /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs /workspace
 
 ```shell
 cd /workspace/todoapi-dotnet && dotnet run --project TodoApi --urls http://+:8080
-# または cd TodoApi && dotnet run --urls http://+:8080
+# または cd /workspace/todoapi-dotnet/TodoApi && dotnet run --urls http://+:8080
 ```
 
-ターミナルでの動作確認は以下の通りです
+5. ターミナルでの動作確認をしてみましょう
 
 ```shell
 ## 登録
@@ -136,10 +135,9 @@ curl http://localhost:8080/api/todoitems/1
 
 ## 削除
 curl http://localhost:8080/api/todoitems/1 -XDELETE -v
-
 ```
 
-WEbアプリケーション実行後には、Swaggerで動作確認も可能です！
+6. (Option) 前章までの内容を参考に、Swaggerでも動作確認をしてみましょう！
 
 
 ### (4) Web UI の追加
@@ -150,36 +148,115 @@ cp -r /workspace/todoapi-dotnet/work/wwwroot /workspace/todoapi-dotnet/TodoApi/w
 ```
 
 2. Webアプリケーションの実行
-
 ```shell
 cd /workspace/todoapi-dotnet && dotnet run --project TodoApi --urls http://+:8080
-# または cd TodoApi && dotnet run --urls http://+:8080
+# または cd /workspace/todoapi-dotnet/TodoApi && dotnet run --urls http://+:8080
 ```
 
 3. PORTSタグを開き、Open Browserをクリック
-
 <img width="973" alt="image" src="https://user-images.githubusercontent.com/65447508/193523273-c632dc6e-35ca-47a8-a421-b521968722aa.png">
 
 4. Web UI が表示されます
 <img width="1155" alt="image" src="https://user-images.githubusercontent.com/65447508/193523504-5a97596e-cd6e-4241-bba3-ff42e866754d.png">
 
 
+### (5) TodoAPIのコンテナ化
 
-### (5) Dockerfileの作成
-
+1. Dockerfileの配置
 ```shell
-# コンテナイメージの作成（ビルド）
-docker build .
+# Dockerfileの配置
+cp /workspace/todoapi-dotnet/work/Dockerfile /workspace/todoapi-dotnet/Dockerfile
+
+# コンテナビルド時に無視するファイル群を指定（本来はどちらかに配置）
+cp /workspace/todoapi-dotnet/work/.dockerignore /workspace/todoapi-dotnet/.dockerignore
 ```
 
-### (6) docker-compose.yml の 作成
-
+2. コンテナイメージを todoapi というタグ名で作成
 ```shell
-# コンテナ起動
-docker-compose up
+cd /workspace/todoapi-dotnet
+docker build --file ./TodoApi/Dockerfile --tag todoapi:latest .
 ```
 
-### (参考) 拡張機能によるDockerfileの自動作成
+3. 作成したコンテナイメージで、コンテナの作成・起動（バックグラウンド）
+```shell
+docker run -d --name todoapi-sample todoapi:latest 
+```
 
-...
+4. 正常に作成・起動しているか確認
+```shell
+# 作成されているコンテナの確認
+docker container ls -a
 
+# 起動しているコンテナの確認
+docker ps
+
+# 起動しているコンテナのログを確認
+docker logs todoapi-sample
+or
+docker logs -f todoapi-sample  # Follow log output
+```
+
+5. 前章までの内容を参考に動作確認してみましょう！
+  - ターミナル(CURL)　
+  - Swagger
+  - Web UI
+
+6. 起動しているコンテナを停止する
+```shell
+docker kill todoapi-sample
+docker ps 
+```
+
+7. 作成済のコンテナを削除する
+```shell
+docker rm todoapi-sample
+docker container ls -a
+```
+
+### (6) docker-composeによる起動
+
+docker-composeは、複数のDockerコンテナを定義し実行するDockerアプリケーションのためのツールです。
+  
+今回は単一のWebアプリコンテナの起動となりますが、いずれDB等と同時起動
+
+1. docker-compose.yamlの配置
+```shell
+cd /workspace/todoapi-dotnet/work/docker-compose.yml /workspace/todoapi-dotnet/
+```
+
+2. docker-composeによるコンテナ起動（バックグラウンド）
+```shell
+docker-compose up -d 
+```
+
+3. docker-composeで正常に作成・起動しているか確認
+```shell
+# 起動しているコンテナの確認
+docker-compose ps
+
+# 起動しているコンテナのログを確認
+docker-compose logs todoapi
+or
+docker-compose logs -f todoapi  # Follow log output
+```
+
+4. 前章までの内容を参考に動作確認してみましょう！
+  - ターミナル(CURL)　
+  - Swagger
+  - Web UI
+
+6. docker-composeで起動しているコンテナを停止・削除する
+```shell
+docker-compose down
+```
+
+### (Option) docker-compose で SQL Server を起動して、ToDoアプリを完成させる！
+
+・・・
+ 
+
+## ハンズオンの終了
+
+ハンズオンは如何でしたでしょうか？
+
+今後の改善に向けて、アンケートの記載をお願いします！
