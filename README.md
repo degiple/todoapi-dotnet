@@ -62,7 +62,11 @@ curl http://localhost:8080/weatherforecast | jq
 <img width="955" alt="image" src="https://user-images.githubusercontent.com/65447508/193513739-ad7e889e-4d3d-4730-8464-22b41bef133a.png">
 
 
-今度はSwaggerを使って動作確認しましょう！
+今度は Swagger を使って動作確認しましょう！
+
+Swaggerって何？
+
+
 
 1. PORTSタグを開き、URLをコピーする
 
@@ -97,17 +101,28 @@ curl http://localhost:8080/weatherforecast | jq
 cp -r /workspace/todoapi-dotnet/work/Models/ /workspace/todoapi-dotnet/TodoApi/Models/
 ls /workspace/todoapi-dotnet/TodoApi/Models/
 ```
+```log
+TodoContext.cs  TodoItems.cs
+```
 
 2. 依存関係を解決するように Program.cs を更新
 ```shell
 cp /workspace/todoapi-dotnet/TodoApi/Program.cs /workspace/todoapi-dotnet/TodoApi/Program.cs.backup # バックアップ
 cp /workspace/todoapi-dotnet/work/Program.cs /workspace/todoapi-dotnet/TodoApi/Program.cs
+ls /workspace/todoapi-dotnet/TodoApi/Program.cs
+```
+```log
+/workspace/todoapi-dotnet/TodoApi/Program.cs
 ```
 
 3. コントローラーの追加
  
 ```shell
-cp /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs
+cp /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs /workspace/todoapi-dotnet/TodoApi/Controllers/TodoItemsController.cs
+ls /workspace/todoapi-dotnet/TodoApi/Controllers/TodoItemsController.cs
+```
+```log
+/workspace/todoapi-dotnet/TodoApi/Controllers/TodoItemsController.cs
 ```
 
 4. Webアプリケーションの実行
@@ -116,23 +131,140 @@ cp /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs /workspace
 cd /workspace/todoapi-dotnet
 dotnet run --project TodoApi --urls http://+:8080
 ```
+```log
+Welcome to .NET 6.0!
+---------------------
+SDK Version: 6.0.200
+
+Telemetry
+---------
+The .NET tools collect usage data in order to help us improve your experience. It is collected by Microsoft and shared with the community. You can opt-out of telemetry by setting the DOTNET_CLI_TELEMETRY_OPTOUT environment variable to '1' or 'true' using your favorite shell.
+
+Read more about .NET CLI Tools telemetry: https://aka.ms/dotnet-cli-telemetry
+
+----------------
+Installed an ASP.NET Core HTTPS development certificate.
+To trust the certificate run 'dotnet dev-certs https --trust' (Windows and macOS only).
+Learn about HTTPS: https://aka.ms/dotnet-https
+----------------
+Write your first app: https://aka.ms/dotnet-hello-world
+Find out what's new: https://aka.ms/dotnet-whats-new
+Explore documentation: https://aka.ms/dotnet-docs
+Report issues and find source on GitHub: https://github.com/dotnet/core
+Use 'dotnet --help' to see available commands or visit: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+Building...
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://[::]:8080
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Development
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/todoapi-dotnet/TodoApi/
+```
 
 5. ターミナルでの動作確認をしてみましょう
 
+Todoの登録（1つ目）
+
 ```shell
-## 登録
 curl http://localhost:8080/api/todoitems -XPOST \
 -H 'Content-Type: application/json' \
 -d '{"name": "my first item"}' | jq .
+```
+```log
+{
+  "id": 1,
+  "name": "my first item",
+  "isComplete": false
+}
+```
 
-## リスト
-curl http://localhost:8080/api/todoitems
+Todoの登録（２つ目）
 
-## １件取得
-curl http://localhost:8080/api/todoitems/1
+```shell
+curl http://localhost:8080/api/todoitems -XPOST \
+-H 'Content-Type: application/json' \
+-d '{"name": "my second item"}' | jq .
+```
+```log
+{
+  "id": 2,
+  "name": "my second item",
+  "isComplete": false
+}
+```
 
-## 削除
-curl http://localhost:8080/api/todoitems/1 -XDELETE -v
+
+登録したToDoの一覧を取得
+
+```shell
+curl http://localhost:8080/api/todoitems | jq .
+```
+```log
+[
+  {
+    "id": 1,
+    "name": "my first item",
+    "isComplete": false
+  },
+  {
+    "id": 2,
+    "name": "my second item",
+    "isComplete": false
+  }
+]
+```
+
+登録した1つ目のToDoを取得
+
+```shell
+curl http://localhost:8080/api/todoitems/1 | jq .
+```
+```log
+{
+  "id": 1,
+  "name": "my first item",
+  "isComplete": false
+}
+```
+
+ToDoの更新
+
+```shell
+# 更新
+curl http://localhost:8080/api/todoitems/1 -XPUT \
+-H 'Content-Type: application/json' \
+-d '{"id": 1, "name": "ハンズオンを完了させる！", "isComplete": false}' 
+
+# 更新されたか確認
+curl http://localhost:8080/api/todoitems/1 | jq .
+```
+```log
+{
+  "id": 1,
+  "name": "ハンズオンを完了させる！",
+  "isComplete": false
+}
+```
+
+Todoの削除
+
+```shell
+# 削除
+curl http://localhost:8080/api/todoitems/1 -XDELETE
+
+# 削除されたか確認
+curl http://localhost:8080/api/todoitems/1 | jq .
+```
+```log
+{
+  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
+  "title": "Not Found",
+  "status": 404,
+  "traceId": "00-175af459cd4e48af097f8e6722204cbe-8b559381bf4caeac-00"
+}
 ```
 
 6. (Option) 前章までの内容を参考に、Swaggerでも動作確認をしてみましょう！
@@ -169,10 +301,10 @@ dotnet run --project TodoApi --urls http://+:8080
 1. Dockerfileの配置
 ```shell
 # Dockerfileの配置
-cp /workspace/todoapi-dotnet/work/Dockerfile /workspace/todoapi-dotnet/Dockerfile
+cp /workspace/todoapi-dotnet/work/Dockerfile /workspace/todoapi-dotnet/TodoApi/Dockerfile
 
 # コンテナビルド時に無視するファイル群を指定（本来はどちらかに配置）
-cp /workspace/todoapi-dotnet/work/.dockerignore /workspace/todoapi-dotnet/.dockerignore
+cp /workspace/todoapi-dotnet/work/.dockerignore /workspace/todoapi-dotnet/TodoApi/.dockerignore
 ```
 
 2. コンテナイメージを todoapi というタグ名で作成
@@ -184,6 +316,10 @@ docker build --file ./TodoApi/Dockerfile --tag todoapi:latest .
 3. 作成したコンテナイメージで、コンテナの作成・起動（バックグラウンド）
 ```shell
 docker run -d --name todoapi-sample todoapi:latest 
+```
+```shell
+gitpod /workspace/todoapi-dotnet (hansdon) $ docker run -d --name todoapi-sample todoapi:latest 
+53ac1ebe2143f7007e6872116f6443a0845600c879bfb5f9dbb0056233feb839
 ```
 
 4. 正常に作成・起動しているか確認
@@ -199,6 +335,23 @@ docker logs todoapi-sample
 or
 docker logs -f todoapi-sample  # Follow log output
 ```
+```log
+gitpod /workspace/todoapi-dotnet (handon) $ docker container ls -a
+CONTAINER ID   IMAGE            COMMAND                CREATED         STATUS         PORTS      NAMES
+53ac1ebe2143   todoapi:latest   "dotnet TodoApi.dll"   9 seconds ago   Up 8 seconds   8080/tcp   todoapi-sample
+gitpod /workspace/todoapi-dotnet (handon) $ docker ps
+CONTAINER ID   IMAGE            COMMAND                CREATED          STATUS          PORTS      NAMES
+53ac1ebe2143   todoapi:latest   "dotnet TodoApi.dll"   15 seconds ago   Up 13 seconds   8080/tcp   todoapi-sample
+gitpod /workspace/todoapi-dotnet (handon) $ docker logs todoapi-sample
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://[::]:8080
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /app/
+```
 
 5. 前章までの内容を参考に動作確認してみましょう！
   - ターミナル(CURL)　
@@ -207,8 +360,12 @@ docker logs -f todoapi-sample  # Follow log output
 
 6. 起動しているコンテナを停止する
 ```shell
-docker kill todoapi-sample
+docker stop todoapi-sample
 docker ps 
+```
+```log
+gitpod /workspace/todoapi-dotnet (handson) $ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
 7. 作成済のコンテナを削除する
