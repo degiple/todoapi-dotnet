@@ -320,7 +320,7 @@ dotnet run --project TodoApi --urls http://+:8080
 cp /workspace/todoapi-dotnet/work/Dockerfile /workspace/todoapi-dotnet/TodoApi/Dockerfile
 
 # コンテナビルド時に無視するファイル群を指定
-cp /workspace/todoapi-dotnet/work/.dockerignore /workspace/todoapi-dotnet/TodoApi/.dockerignore
+cp /workspace/todoapi-dotnet/work/.dockerignore /workspace/todoapi-dotnet/.dockerignore
 ```
 
 2. コンテナイメージを todoapi というタグ名で作成
