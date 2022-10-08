@@ -645,3 +645,4 @@ Comming soon...
 ハンズオンは如何でしたでしょうか？
 
 今後の改善に向けて、アンケートの記載をお願いします！
+https://forms.gle/JhTtZ6zahVxZgtNW7
