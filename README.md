@@ -28,6 +28,7 @@ ASP.NET core と Docker を使って、コンテナ開発を学ぶためのコ�
 まずは テンプレートから ASP.NET プロジェクト`TodoApi`を作成しましょう
 
 ```shell
+# このコマンドを実行
 dotnet new webapi -o TodoApi
 ```
 
@@ -47,96 +48,13 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory
 1. TodoApi プロジェクトの実行
 
 ```shell
-cd /workspace/todoapi-dotnet
-dotnet run --project TodoApi --urls http://+:8080
-```
-
-2. 別のターミナルを立ち上げる
-
-![image](https://user-images.githubusercontent.com/65447508/193514013-215a52ea-14b5-40b7-8049-640277b24e0d.png)
-
-3. WeatherForecast API を curl コマンドで確認
-
-```shell
-curl http://localhost:8080/weatherforecast | jq
-```
-
-<img width="955" alt="image" src="https://user-images.githubusercontent.com/65447508/193513739-ad7e889e-4d3d-4730-8464-22b41bef133a.png">
-
-今度は Swagger を使って動作確認しましょう！
-
-Swagger って何？
-
-1. PORTS タグを開き、URL をコピーする
-
-![image](https://user-images.githubusercontent.com/65447508/193514338-bd696fdf-423c-48e9-a81c-342afe8ecbde.png)
-
-2. ブラウザで新しくタブを開き、以下のように URL を入力する
-
-```
-＜コピーしたURL＞/swagger
-
-# 例： https://8080-degiple-todoapidotnet-lv9mmfnsijs.ws-us69.gitpod.io/swagger
-```
-
-3. /WeatherForecast をクリック
-
-4. Try in out をクリック
-
-5. Exexute をクリック
-
-もし上手くいけば以下のような画面が表示されます！
-<img width="1262" alt="image" src="https://user-images.githubusercontent.com/65447508/193514920-fa60983b-08b3-4431-96b5-885462ed1919.png">
-
-最後に、1 つ目のターミナルで実行していたアプリケーションを Ctl + C キー で強制終了しておきましょう。
-
-### (3) ToDo API の実装
-
-それでは Todo アプリケーションを構築してきましょう！　　
-尚、本コンテンツでは事前にソースコードを準備しています。
-
-1. モデルクラスの追加
-
-```shell
-cp -r /workspace/todoapi-dotnet/work/Models/ /workspace/todoapi-dotnet/TodoApi/Models/
-ls /workspace/todoapi-dotnet/TodoApi/Models/
-```
-
-```log
-TodoContext.cs  TodoItems.cs
-```
-
-2. 依存関係を解決するように Program.cs を更新
-
-```shell
-cp /workspace/todoapi-dotnet/TodoApi/Program.cs /workspace/todoapi-dotnet/TodoApi/Program.cs.backup # バックアップ
-cp /workspace/todoapi-dotnet/work/Program.cs /workspace/todoapi-dotnet/TodoApi/Program.cs
-ls /workspace/todoapi-dotnet/TodoApi/Program.cs
-```
-
-```log
-/workspace/todoapi-dotnet/TodoApi/Program.cs
-```
-
-3. コントローラーの追加
-
-```shell
-cp /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs /workspace/todoapi-dotnet/TodoApi/Controllers/TodoItemsController.cs
-ls /workspace/todoapi-dotnet/TodoApi/Controllers/TodoItemsController.cs
-```
-
-```log
-/workspace/todoapi-dotnet/TodoApi/Controllers/TodoItemsController.cs
-```
-
-4. Web アプリケーションの実行
-
-```shell
+# このコマンドを実行
 cd /workspace/todoapi-dotnet
 dotnet run --project TodoApi --urls http://+:8080
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 Welcome to .NET 6.0!
 ---------------------
 SDK Version: 6.0.200
@@ -169,17 +87,118 @@ info: Microsoft.Hosting.Lifetime[0]
       Content root path: /workspace/todoapi-dotnet/TodoApi/
 ```
 
+2. 別のターミナルを立ち上げる
+
+![image](https://user-images.githubusercontent.com/65447508/193514013-215a52ea-14b5-40b7-8049-640277b24e0d.png)
+
+3. WeatherForecast API を curl コマンドで確認
+
+```shell
+# このコマンドを実行
+curl http://localhost:8080/weatherforecast | jq
+```
+
+<img width="955" alt="image" src="https://user-images.githubusercontent.com/65447508/193513739-ad7e889e-4d3d-4730-8464-22b41bef133a.png">
+
+#### 今度は Swagger UI を使って、動作確認してみましょう！
+
+Swagger とは…
+- https://cloud.google.com/endpoints/docs/openapi/openapi-overview?hl=ja を用いて Restful APIを記述する際に用いられるオープンソースのツールセットのことです
+- Swagger UI により、各APIを視覚化して操作・テスト等をすることができます
+- https://swagger.io/
+
+1. PORTS タグを開き、URL をコピーする
+
+![image](https://user-images.githubusercontent.com/65447508/193514338-bd696fdf-423c-48e9-a81c-342afe8ecbde.png)
+
+2. ブラウザで新しくタブを開き、以下のように URL を入力する
+
+```
+＜コピーしたURL＞/swagger
+
+# 例： https://8080-degiple-todoapidotnet-lv9mmfnsijs.ws-us69.gitpod.io/swagger
+```
+
+3. /WeatherForecast をクリック
+
+4. Try in out をクリック
+
+5. Exexute をクリック
+
+もし上手くいけば以下のような画面が表示されます！
+<img width="1262" alt="image" src="https://user-images.githubusercontent.com/65447508/193514920-fa60983b-08b3-4431-96b5-885462ed1919.png">
+
+最後に、1 つ目のターミナルで実行していたアプリケーションを Ctl + C キー で強制終了しておきましょう。
+
+### (3) ToDo API の実装
+
+それでは Todo アプリケーションを構築してきましょう！　　
+尚、本コンテンツでは事前にソースコードを準備しています。
+
+1. モデルクラスの追加
+
+```shell
+# このコマンドを実行
+cp -r /workspace/todoapi-dotnet/work/Models/ /workspace/todoapi-dotnet/TodoApi/Models/
+ls /workspace/todoapi-dotnet/TodoApi/Models/
+```
+
+```log
+# 正常に実行できた場合のログ(例)
+TodoContext.cs  TodoItems.cs
+```
+
+2. 依存関係を解決するように Program.cs を更新
+
+```shell
+# このコマンドを実行
+
+## バックアップ
+cp /workspace/todoapi-dotnet/TodoApi/Program.cs /workspace/todoapi-dotnet/TodoApi/Program.cs.backup
+
+cp /workspace/todoapi-dotnet/work/Program.cs /workspace/todoapi-dotnet/TodoApi/Program.cs
+ls /workspace/todoapi-dotnet/TodoApi/Program.cs
+```
+
+```log
+# 正常に実行できた場合のログ(例)
+/workspace/todoapi-dotnet/TodoApi/Program.cs
+```
+
+3. コントローラーの追加
+
+```shell
+# このコマンドを実行
+cp /workspace/todoapi-dotnet/work/Contralloers/TodoItemsController.cs /workspace/todoapi-dotnet/TodoApi/Controllers/TodoItemsController.cs
+ls /workspace/todoapi-dotnet/TodoApi/Controllers/
+```
+
+```log
+# 正常に実行できた場合のログ(例)
+TodoItemsController.cs  WeatherForecastController.cs
+```
+
+4. Web アプリケーションの実行
+
+```shell
+# このコマンドを実行
+cd /workspace/todoapi-dotnet
+dotnet run --project TodoApi --urls http://+:8080
+```
+
 5. ターミナルでの動作確認をしてみましょう
 
 Todo の登録（1 つ目）
 
 ```shell
+# このコマンドを実行
 curl http://localhost:8080/api/todoitems -XPOST \
 -H 'Content-Type: application/json' \
 -d '{"name": "my first item"}' | jq .
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 {
   "id": 1,
   "name": "my first item",
@@ -190,12 +209,14 @@ curl http://localhost:8080/api/todoitems -XPOST \
 Todo の登録（２つ目）
 
 ```shell
+# このコマンドを実行
 curl http://localhost:8080/api/todoitems -XPOST \
 -H 'Content-Type: application/json' \
 -d '{"name": "my second item"}' | jq .
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 {
   "id": 2,
   "name": "my second item",
@@ -206,10 +227,12 @@ curl http://localhost:8080/api/todoitems -XPOST \
 登録した ToDo の一覧を取得
 
 ```shell
+# このコマンドを実行
 curl http://localhost:8080/api/todoitems | jq .
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 [
   {
     "id": 1,
@@ -227,10 +250,12 @@ curl http://localhost:8080/api/todoitems | jq .
 登録した 1 つ目の ToDo を取得
 
 ```shell
+# このコマンドを実行
 curl http://localhost:8080/api/todoitems/1 | jq .
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 {
   "id": 1,
   "name": "my first item",
@@ -238,19 +263,21 @@ curl http://localhost:8080/api/todoitems/1 | jq .
 }
 ```
 
-ToDo の更新
+1 つ目の ToDo を更新
 
 ```shell
-# 更新
+# このコマンドを実行
+
+## 更新
 curl http://localhost:8080/api/todoitems/1 -XPUT \
 -H 'Content-Type: application/json' \
 -d '{"id": 1, "name": "ハンズオンを完了させる！", "isComplete": false}'
-
-# 更新されたか確認
+## 更新されたか確認
 curl http://localhost:8080/api/todoitems/1 | jq .
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 {
   "id": 1,
   "name": "ハンズオンを完了させる！",
@@ -258,17 +285,19 @@ curl http://localhost:8080/api/todoitems/1 | jq .
 }
 ```
 
-Todo の削除
+1 つ目の ToDo を削除
 
 ```shell
-# 削除
-curl http://localhost:8080/api/todoitems/1 -XDELETE
+# このコマンドを実行
 
-# 削除されたか確認
+## 削除
+curl http://localhost:8080/api/todoitems/1 -XDELETE
+## 削除されたか確認
 curl http://localhost:8080/api/todoitems/1 | jq .
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 {
   "type": "https://tools.ietf.org/html/rfc7231#section-6.5.4",
   "title": "Not Found",
@@ -288,17 +317,20 @@ ToDo を Web 画面で操作したくなりませんか？
 1. 静的ファイル(with Vue.js)の配置
 
 ```shell
+# このコマンドを実行
 cp -r /workspace/todoapi-dotnet/work/wwwroot /workspace/todoapi-dotnet/TodoApi/wwwroot/
 ls  /workspace/todoapi-dotnet/TodoApi/wwwroot/
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 index.html  js
 ```
 
 2. Web アプリケーションの実行
 
 ```shell
+# このコマンドを実行
 cd /workspace/todoapi-dotnet
 dotnet run --project TodoApi --urls http://+:8080
 ```
@@ -316,21 +348,25 @@ dotnet run --project TodoApi --urls http://+:8080
 1. Dockerfile の配置
 
 ```shell
-# Dockerfileの配置
-cp /workspace/todoapi-dotnet/work/Dockerfile /workspace/todoapi-dotnet/TodoApi/Dockerfile
+# このコマンドを実行
 
-# コンテナビルド時に無視するファイル群を指定
+## Dockerfileの配置
+cp /workspace/todoapi-dotnet/work/Dockerfile /workspace/todoapi-dotnet/TodoApi/Dockerfile
+## コンテナビルド時に無視するファイル群を指定
 cp /workspace/todoapi-dotnet/work/.dockerignore /workspace/todoapi-dotnet/.dockerignore
+
 ```
 
 2. コンテナイメージを todoapi というタグ名で作成
 
 ```shell
+# このコマンドを実行
 cd /workspace/todoapi-dotnet
 docker build --file ./TodoApi/Dockerfile --tag todoapi:latest .
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 Sending build context to Docker daemon  140.5MB
 Step 1/19 : FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal AS base
  ---> 434b27adeba8
@@ -409,12 +445,12 @@ Successfully tagged todoapi:latest
 3. 作成したコンテナイメージで、コンテナの作成・起動（バックグラウンド）
 
 ```shell
+# このコマンドを実行
 docker run -d --name todoapi-sample todoapi:latest
 ```
 
-```shell
-# 実行例
-gitpod /workspace/todoapi-dotnet (hansdon) $ docker run -d --name todoapi-sample todoapi:latest
+```log
+# 正常に実行できた場合のログ(例)
 53ac1ebe2143f7007e6872116f6443a0845600c879bfb5f9dbb0056233feb839
 ```
 
@@ -423,11 +459,12 @@ gitpod /workspace/todoapi-dotnet (hansdon) $ docker run -d --name todoapi-sample
 作成されているコンテナの確認
 
 ```shell
+# このコマンドを実行
 docker container ls -a
 ```
 
 ```log
-# 実行例
+# 正常に実行できた場合のログ(例)
 CONTAINER ID   IMAGE            COMMAND                CREATED         STATUS         PORTS      NAMES
 53ac1ebe2143   todoapi:latest   "dotnet TodoApi.dll"   9 seconds ago   Up 8 seconds   8080/tcp   todoapi-sample
 ```
@@ -435,24 +472,27 @@ CONTAINER ID   IMAGE            COMMAND                CREATED         STATUS   
 起動しているコンテナの確認
 
 ```shell
+# このコマンドを実行
 docker ps
 ```
 
 ```log
-# 実行例
+# 正常に実行できた場合のログ(例)
 gitpod /workspace/todoapi-dotnet (handson) $ docker ps
 CONTAINER ID   IMAGE            COMMAND                CREATED          STATUS          PORTS      NAMES
 53ac1ebe2143   todoapi:latest   "dotnet TodoApi.dll"   15 seconds ago   Up 13 seconds   8080/tcp   todoapi-sample
 ```
 
-# 起動しているコンテナのログを確認
+起動しているコンテナのログを確認
 
 ```shell
+# このコマンドを実行
 docker logs todoapi-sample
-# または docker logs -f todoapi-sample
+## または docker logs -f todoapi-sample
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 gitpod /workspace/todoapi-dotnet (handson) $ docker logs todoapi-sample
 info: Microsoft.Hosting.Lifetime[14]
       Now listening on: http://[::]:8080
@@ -475,21 +515,25 @@ info: Microsoft.Hosting.Lifetime[0]
 コンテナの停止
 
 ```shell
+# このコマンドを実行
 docker stop todoapi-sample
 docker ps
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
 停止したコンテナの確認
 
 ```shell
+# このコマンドを実行
 docker container ls -a
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 CONTAINER ID   IMAGE                   COMMAND                CREATED              STATUS                      PORTS     NAMES
 5128c98d200e   todoapi:latest          "dotnet TodoApi.dll"   About a minute ago   Exited (0) 28 seconds ago             todoapi-sample
 ```
@@ -497,11 +541,13 @@ CONTAINER ID   IMAGE                   COMMAND                CREATED           
 7. 作成済のコンテナを削除する
 
 ```shell
+# このコマンドを実行
 docker rm todoapi-sample
 docker container ls -a
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
 ```
 
@@ -515,21 +561,25 @@ docker-compose は、複数の Docker コンテナを定義し実行する Docke
 1. docker-compose.yaml の配置
 
 ```shell
+# このコマンドを実行
 cp /workspace/todoapi-dotnet/work/docker-compose.yml /workspace/todoapi-dotnet/
 ls /workspace/todoapi-dotnet/docker-compose.yml
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 /workspace/todoapi-dotnet/docker-compose.yml
 ```
 
 2. docker-compose によるコンテナ起動（バックグラウンド）
 
 ```shell
+# このコマンドを実行
 docker-compose up -d
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 [+] Running 1/1
  ⠿ Container todoapi-dotnet-todoapi-1  Started
 ```
@@ -537,10 +587,12 @@ docker-compose up -d
 3. docker-compose で正常に起動しているか確認
 
 ```shell
+# このコマンドを実行
 docker-compose ps
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 NAME                       COMMAND                SERVICE             STATUS              PORTS
 todoapi-dotnet-todoapi-1   "dotnet TodoApi.dll"   todoapi             running             0.0.0.0:8080->8080/tcp, :::8080->8080/tcp
 ```
@@ -553,6 +605,7 @@ docker-compose logs todoapi
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 todoapi-dotnet-todoapi-1  | info: Microsoft.Hosting.Lifetime[14]
 todoapi-dotnet-todoapi-1  |       Now listening on: http://[::]:8080
 todoapi-dotnet-todoapi-1  | info: Microsoft.Hosting.Lifetime[0]
@@ -572,10 +625,12 @@ todoapi-dotnet-todoapi-1  |       Content root path: /app/
 6. docker-compose で起動しているコンテナを停止・削除する
 
 ```shell
+# このコマンドを実行
 docker-compose down
 ```
 
 ```log
+# 正常に実行できた場合のログ(例)
 [+] Running 2/2
  ⠿ Container todoapi-dotnet-todoapi-1  Removed
  ⠿ Network todoapi-dotnet_default      Removed
