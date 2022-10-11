@@ -60,6 +60,7 @@ const app = Vue.createApp({
       console.log("changeTodo:" + todo.id);
       todoapi
         .put("/" + todo.id, {
+          id: todo.id,
           name: todo.name,
           isComplete: todo.isComplete,
         })
