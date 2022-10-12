@@ -103,9 +103,9 @@ curl http://localhost:8080/weatherforecast | jq
 #### 今度は Swagger UI を使って、動作確認してみましょう！
 
 Swagger とは…
-- https://cloud.google.com/endpoints/docs/openapi/openapi-overview?hl=ja を用いて Restful APIを記述する際に用いられるオープンソースのツールセットのことです
+- [OpenAPI](https://cloud.google.com/endpoints/docs/openapi/openapi-overview?hl=ja) を用いて Restful APIを記述する際に用いられるオープンソースのツールセットのことです
 - Swagger UI により、各APIを視覚化して操作・テスト等をすることができます
-- https://swagger.io/
+   - https://swagger.io/
 
 1. PORTS タグを開き、URL をコピーする
 
