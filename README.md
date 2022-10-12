@@ -446,7 +446,7 @@ Successfully tagged todoapi:latest
 
 ```shell
 # このコマンドを実行
-docker run -d --name todoapi-sample todoapi:latest
+docker run -d --name todoapi-sample -p 8080:8080 todoapi:latest
 ```
 
 ```log
